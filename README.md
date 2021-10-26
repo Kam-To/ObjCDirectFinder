@@ -1,33 +1,33 @@
 # ObjCDirectFinder
 
-Clang provide direct attribute for us to write code like below:
+Clang had provided `objc_direct` attribute for us to write this:
 ```
 @property (nonatomic, assign, direct) BOOL isLaunchFinished;
 - (BOOL)isLaunching __attribute__((objc_direct));
 ```
-It reduce instructions and skip process of messaging in runtime. So I wrote a plugin to analyze which property/method can be mark as direct, and change about 25700 propertys/methods to direct property/method. **It reduce 3.11 MB size in executale file in my case.**
+It reduce code size and skip the process of Objective-C messaging. So I wrote a plugin to find out property/method as much as possible that can be mark as direct, and changed about 25700 propertys/methods to direct access. **It reduce 3.11 MB size in executale file in my case.**
 ```
 85823088  objc_direct
 89084400  original
 ```
 
-This clang plugin was built and tested in ARM env with **llvm-project branch release/13.x.**
+This clang plugin was built and tested under ARM env on **llvm-project  release/13.x branch.**
 
 ## USAGE
 
-Grab the code and CMakeList file in source directory, and build them as ordinary clang plugin. **Notice that plugin require a  hardcode directory path to the store analyze results **.
+Grab the code and CMakeList file in source directory, and build them as ordinary clang plugin. **Notice that plugin require a hardcode directory path to the store analyze results**
 
 ```c++
 string path = string(<#give me a directory path to store results#>) ...
 ```
 
-After build your product, a buntch list json file should be listed in directory you provide. Then use merge.py script to merge result:
+After building process, a bunch of json file should be listed in directory you provided. Then use merge.py script to merge results:
 
 ```shell
 python3 merge.py -i path_you_just_provide -o output_file_path
 ```
 
-Now you get a list that can be mark as directable property/meth:
+Now you get a json list that property/meth can be marked as directable:
 
 ```json
 {   "/Users/kam/Documents/XX/PhotoPicker/BullShitPublishPhotoPicker/BullShitPublishTemplatePicker/GLBullShitPublishTemplatePickerViewController.m:30:41": {
