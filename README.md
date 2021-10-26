@@ -41,8 +41,7 @@ Now you get a json list that property/meth can be marked as directable:
         "loc": "/Users/kam/Documents/XX/PersonalCenter/Edit/Component/GLPerfectRoleInfoGameComponent.h:14:1",
         "name": "-[GLPerfectRoleInfoGameComponent configDataWithIconUrl:title:]",
         "sel": "configDataWithIconUrl:title:"
-    },
-    ...
+    }
 }
 ```
 
